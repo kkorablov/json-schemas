@@ -3,7 +3,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "definitions": {
     "DeploymentPlanElementName": {
-      "description": "The name of a plan element (set, step). Maximum 60 characters, no leading or trailing whitespace.",
+      "description": "The name of a plan element (group, action). Maximum 60 characters, no leading or trailing whitespace.",
       "type": "string",
       "pattern": "^\\S.{0,59}(?<!\\s)$"
     },
@@ -32,7 +32,7 @@
       "required": ["actionName"]
     },
     "DeploymentPlanAction": {
-      "description": "Represents an action in a deployment step.",
+      "description": "Represents an action in a deployment group.",
       "type": "object",
       "additionalProperties": false,
       "properties": {
@@ -45,7 +45,7 @@
           "$ref": "#/definitions/DeploymentPlanJob"
         },
         "dependsOn": {
-          "description": "The dependencies on other actions within the same step.",
+          "description": "The dependencies on other actions within the same group.",
           "type": ["array", "null"],
           "items": {
             "$ref": "#/definitions/DeploymentPlanActionDependency"
@@ -56,7 +56,7 @@
       "required": ["name"]
     },
     "DeploymentPlanGroupOption": {
-      "description": "Represents an option in a deployment step. Use a single-name object such as { \"ActiveValueSet\": \"Default value set\" } where the option name contains only English letters (max 64) and the value is up to 256 characters.",
+      "description": "Represents an option in a deployment group. Use a single-name object such as { \"ActiveValueSet\": \"Default value set\" } where the option name contains only English letters (max 64) and the value is up to 256 characters.",
       "type": "object",
       "minProperties": 1,
       "maxProperties": 1,
@@ -72,12 +72,12 @@
       }
     },
     "DeploymentPlanJobParameterName": {
-      "description": "The name of a parameter for a job step. Maximum 255 characters, must start with a letter, no whitespaces, underscore and dashes allowed.",
+      "description": "The name of a parameter for a job action. Maximum 255 characters, must start with a letter, no whitespaces, underscore and dashes allowed.",
       "type": "string",
       "pattern": "^([A-Za-z_][A-Za-z0-9_\\-]{0,254})$"
     },
     "DeploymentPlanJobParameter": {
-      "description": "Represents a parameter for a job step.",
+      "description": "Represents a parameter for a job action.",
       "type": "object",
       "additionalProperties": false,
       "properties": {
@@ -93,16 +93,16 @@
       "required": ["name", "value"]
     },
     "DeploymentPlanJob": {
-      "description": "The job configuration for a deployment step.",
+      "description": "The job configuration for a deployment action.",
       "type": "object",
       "additionalProperties": false,
       "properties": {
         "itemId": {
-          "description": "The Id of the item that implements the job to execute. If omitted, the item imported in this set is used.",
+          "description": "The Id of the item that implements the job to execute.",
           "$ref": "https://developer.microsoft.com/json-schemas/fabric/common/auxiliaryTypes/1.0.0/schema.json#/definitions/Guid"
         },
         "logicalId": {
-          "description": "The logical Id of the item that implements the job to execute. If omitted, the item imported in this set is used.",
+          "description": "The logical Id of the item that implements the job to execute.",
           "$ref": "https://developer.microsoft.com/json-schemas/fabric/common/auxiliaryTypes/1.0.0/schema.json#/definitions/Guid"
         },
         "type": {
